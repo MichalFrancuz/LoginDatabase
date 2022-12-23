@@ -11,6 +11,7 @@ public class Main {
     static private DBHandler dbHandler;
     static private Connection connection;
     static private PreparedStatement preparedStatement;
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
         dbHandler = new DBHandler();
@@ -21,11 +22,13 @@ public class Main {
 
         preparedStatement = connection.prepareStatement(insert);
 
-        preparedStatement.setString(1, "Michael");
-        preparedStatement.setString(2, "French");
-        preparedStatement.setString(3, "michaelf");
-        preparedStatement.setString(4, "64276 Ewa Beach");
-        preparedStatement.setInt(5, 1996);
+        //preparedStatement.setInt(1, 5);
+        preparedStatement.setString(1, "Adalbert");
+        preparedStatement.setString(2, "Brave");
+        preparedStatement.setString(3, "adalbertb");
+        preparedStatement.setString(4, "02941 Palma de Mallorca");
+        preparedStatement.setInt(5, 1992);
+        preparedStatement.executeUpdate();
 
     }
 }
