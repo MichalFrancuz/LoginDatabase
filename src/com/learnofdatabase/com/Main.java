@@ -14,9 +14,10 @@ public class Main {
         dbHandler = new DBHandler();
         connection = dbHandler.getDbConnection();
 
-        //writeToDataBase();
+        writeToDataBase();
         //updateDataBase("Jack", "Pen", "jackp", "23901 South Coast", 1980, 1);
-        updateDataBase("Dominic", "Eardrum", "dominice", "93228 San Francisco", 1994, 1);
+        //updateDataBase("Dominic", "Eardrum", "dominice", "93228 San Francisco", 1994, 1);
+        //deleteUserFromDataBase(1);
         readFromDataBase();
 
     }
@@ -28,12 +29,12 @@ public class Main {
 
         preparedStatement = connection.prepareStatement(insert);
 
-        preparedStatement.setInt(1, 7);
-        preparedStatement.setString(2, "Sawyer");
-        preparedStatement.setString(3, "James");
-        preparedStatement.setString(4, "sawyerj");
-        preparedStatement.setString(5, "40165 West Coast");
-        preparedStatement.setInt(6, 1987);
+        preparedStatement.setInt(1, 1);
+        preparedStatement.setString(2, "Peter");
+        preparedStatement.setString(3, "Jackson");
+        preparedStatement.setString(4, "peterj");
+        preparedStatement.setString(5, "31709 San Jose");
+        preparedStatement.setInt(6, 1979);
         preparedStatement.executeUpdate();
 
     }
@@ -75,5 +76,19 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public static void deleteUserFromDataBase(int ID) {
+
+        String query = "DELETE from usersofapp where ID = ? ";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, ID);
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
