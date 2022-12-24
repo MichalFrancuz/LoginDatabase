@@ -15,6 +15,8 @@ public class Main {
         connection = dbHandler.getDbConnection();
 
         //writeToDataBase();
+        //updateDataBase("Jack", "Pen", "jackp", "23901 South Coast", 1980, 1);
+        updateDataBase("Dominic", "Eardrum", "dominice", "93228 San Francisco", 1994, 1);
         readFromDataBase();
 
     }
@@ -44,11 +46,33 @@ public class Main {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-            System.out.println("Names: " + resultSet.getString("firstname") + " "
+            System.out.println(resultSet.getInt("ID") + " Names: " + resultSet.getString("firstname") + " "
                     + resultSet.getString("lastname") + "     "
                     + " Username: " + resultSet.getString("username") + "     "
                     + " Home address: " + resultSet.getString("address") + "     "
                     + " Year of born: " + resultSet.getInt("yearofborn"));
+        }
+
+    }
+
+    public static void updateDataBase(String firstname, String lastname, String username,
+                                      String address, int yearofborn, int ID) {
+
+        String query = "UPDATE usersofapp SET firstname = ? , lastname = ? , username = ? , address = ? , yearofborn = ? "
+                + "where ID = ? ";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, firstname);
+            preparedStatement.setString(2, lastname);
+            preparedStatement.setString(3, username);
+            preparedStatement.setString(4, address);
+            preparedStatement.setInt(5, yearofborn);
+            preparedStatement.setInt(6, ID);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
     }
