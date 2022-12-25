@@ -16,7 +16,7 @@ public class Main {
 
         //writeToDataBase();
         //updateDataBase("Jon Snow", 47, "XL", 11, 4);
-        deleteUserFromDataBase(7);
+        //deleteUserFromDataBase(7);
         readFromDataBase();
 
     }
