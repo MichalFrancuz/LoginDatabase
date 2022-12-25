@@ -14,62 +14,59 @@ public class Main {
         dbHandler = new DBHandler();
         connection = dbHandler.getDbConnection();
 
-        writeToDataBase();
-        //updateDataBase("Jack", "Pen", "jackp", "23901 South Coast", 1980, 1);
-        //updateDataBase("Dominic", "Eardrum", "dominice", "93228 San Francisco", 1994, 1);
-        //deleteUserFromDataBase(1);
+        //writeToDataBase();
+        //updateDataBase("Jon Snow", 47, "XL", 11, 4);
+        deleteUserFromDataBase(7);
         readFromDataBase();
 
     }
 
     public static void writeToDataBase() throws SQLException {
 
-        String insert = "INSERT INTO usersofapp(ID,firstname,lastname,username,address,yearofborn)"
-                + "VALUES(?,?,?,?,?,?)";
+        String insert = "INSERT INTO newusers(fullname,sizeofshoes,sizeoftshirts,numberoforders)"
+                + "VALUES(?,?,?,?)";
 
         preparedStatement = connection.prepareStatement(insert);
 
-        preparedStatement.setInt(1, 1);
-        preparedStatement.setString(2, "Peter");
-        preparedStatement.setString(3, "Jackson");
-        preparedStatement.setString(4, "peterj");
-        preparedStatement.setString(5, "31709 San Jose");
-        preparedStatement.setInt(6, 1979);
+        preparedStatement.setString(1, "Anne Fox");
+        preparedStatement.setInt(2, 34);
+        preparedStatement.setString(3, "S");
+        preparedStatement.setInt(4, 4);
         preparedStatement.executeUpdate();
 
     }
 
     public static void readFromDataBase() throws SQLException {
 
-        String query = "SELECT * from usersofapp";
+        String query = "SELECT * from newusers";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-            System.out.println(resultSet.getInt("ID") + " Names: " + resultSet.getString("firstname") + " "
-                    + resultSet.getString("lastname") + "     "
-                    + " Username: " + resultSet.getString("username") + "     "
-                    + " Home address: " + resultSet.getString("address") + "     "
-                    + " Year of born: " + resultSet.getInt("yearofborn"));
+            System.out.println(
+                    resultSet.getInt("idnewusers")
+                    + " Fullname: " + resultSet.getString("fullname") + "     "
+                    + " Size of shoes: " + resultSet.getInt("sizeofshoes") + "     "
+                    + " Size of t-shirts: " + resultSet.getString("sizeoftshirts") + "     "
+                    + " Number of orders: " + resultSet.getInt("numberoforders"));
         }
 
     }
 
-    public static void updateDataBase(String firstname, String lastname, String username,
-                                      String address, int yearofborn, int ID) {
+    public static void updateDataBase(String fullname, int sizeofshoes, String sizeoftshirts,
+                                      int numberoforders, int idnewusers) {
 
-        String query = "UPDATE usersofapp SET firstname = ? , lastname = ? , username = ? , address = ? , yearofborn = ? "
-                + "where ID = ? ";
+        String query = "UPDATE newusers SET fullname = ? , sizeofshoes = ? , sizeoftshirts = ? , numberoforders = ? "
+                + "where idnewusers = ? ";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, firstname);
-            preparedStatement.setString(2, lastname);
-            preparedStatement.setString(3, username);
-            preparedStatement.setString(4, address);
-            preparedStatement.setInt(5, yearofborn);
-            preparedStatement.setInt(6, ID);
+            preparedStatement.setString(1, fullname);
+            preparedStatement.setInt(2, sizeofshoes);
+            preparedStatement.setString(3, sizeoftshirts);
+            preparedStatement.setInt(4, numberoforders);
+            preparedStatement.setInt(5, idnewusers);
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -78,13 +75,13 @@ public class Main {
 
     }
 
-    public static void deleteUserFromDataBase(int ID) {
+    public static void deleteUserFromDataBase(int idnewusers) {
 
-        String query = "DELETE from usersofapp where ID = ? ";
+        String query = "DELETE from newusers where idnewusers = ? ";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, ID);
+            preparedStatement.setInt(1, idnewusers);
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException e) {
