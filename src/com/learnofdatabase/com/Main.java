@@ -15,7 +15,7 @@ public class Main {
         connection = dbHandler.getDbConnection();
 
         //writeToDataBase();
-        updateDataBase("jamiefoxx", "jamiefoxx@icloud.com", "987654321", Date.valueOf("2018-11-03"), 3);
+        //updateDataBase("jamiefoxx", "jamiefoxx@icloud.com", "987654321", Date.valueOf("2018-11-03"), 3);
         //deleteUserFromDataBase(5);
         readFromDataBase();
 
