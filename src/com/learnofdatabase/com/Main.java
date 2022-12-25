@@ -15,58 +15,58 @@ public class Main {
         connection = dbHandler.getDbConnection();
 
         //writeToDataBase();
-        //updateDataBase("Jon Snow", 47, "XL", 11, 4);
-        //deleteUserFromDataBase(7);
+        updateDataBase("jamiefoxx", "jamiefoxx@icloud.com", "987654321", Date.valueOf("2018-11-03"), 3);
+        //deleteUserFromDataBase(5);
         readFromDataBase();
 
     }
 
     public static void writeToDataBase() throws SQLException {
 
-        String insert = "INSERT INTO newusers(fullname,sizeofshoes,sizeoftshirts,numberoforders)"
+        String insert = "INSERT INTO trainingtable(nickname, email, phonenumber, dateofjoin)"
                 + "VALUES(?,?,?,?)";
 
         preparedStatement = connection.prepareStatement(insert);
 
-        preparedStatement.setString(1, "Anne Fox");
-        preparedStatement.setInt(2, 34);
-        preparedStatement.setString(3, "S");
-        preparedStatement.setInt(4, 4);
+        preparedStatement.setString(1, "spiderman");
+        preparedStatement.setString(2, "spiderman@yahoo.com");
+        preparedStatement.setString(3, "123456789");
+        preparedStatement.setDate(4, java.sql.Date.valueOf("2016-04-17"));
         preparedStatement.executeUpdate();
 
     }
 
     public static void readFromDataBase() throws SQLException {
 
-        String query = "SELECT * from newusers";
+        String query = "SELECT * from trainingtable";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
             System.out.println(
-                    resultSet.getInt("idnewusers")
-                    + " Fullname: " + resultSet.getString("fullname") + "     "
-                    + " Size of shoes: " + resultSet.getInt("sizeofshoes") + "     "
-                    + " Size of t-shirts: " + resultSet.getString("sizeoftshirts") + "     "
-                    + " Number of orders: " + resultSet.getInt("numberoforders"));
+                    resultSet.getInt("id")
+                    + " Nickname: " + resultSet.getString("nickname") + "     "
+                    + " Address e-mail: " + resultSet.getString("email") + "     "
+                    + " Phone number: " + resultSet.getString("phonenumber") + "     "
+                    + " Date of join: " + resultSet.getDate("dateofjoin"));
         }
 
     }
 
-    public static void updateDataBase(String fullname, int sizeofshoes, String sizeoftshirts,
-                                      int numberoforders, int idnewusers) {
+    public static void updateDataBase(String nickname, String email, String phonenumber,
+                                      Date dateofjoin, int id) {
 
-        String query = "UPDATE newusers SET fullname = ? , sizeofshoes = ? , sizeoftshirts = ? , numberoforders = ? "
-                + "where idnewusers = ? ";
+        String query = "UPDATE trainingtable SET nickname = ? , email = ? , phonenumber = ? , dateofjoin = ? "
+                + "where id = ? ";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, fullname);
-            preparedStatement.setInt(2, sizeofshoes);
-            preparedStatement.setString(3, sizeoftshirts);
-            preparedStatement.setInt(4, numberoforders);
-            preparedStatement.setInt(5, idnewusers);
+            preparedStatement.setString(1, nickname);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, phonenumber);
+            preparedStatement.setDate(4, dateofjoin);
+            preparedStatement.setInt(5, id);
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -75,13 +75,13 @@ public class Main {
 
     }
 
-    public static void deleteUserFromDataBase(int idnewusers) {
+    public static void deleteUserFromDataBase(int id) {
 
-        String query = "DELETE from newusers where idnewusers = ? ";
+        String query = "DELETE from trainingtable where id = ? ";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, idnewusers);
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException e) {

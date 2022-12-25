@@ -5,5 +5,5 @@ public class Config {
     protected String dbPort = "3306";
     protected String dbUser = "root";
     protected String dbPass = "@M8!f1zki96";
-    protected String dbName = "newscheme";
+    protected String dbName = "trainingschema";
 }
